@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - Obstacle
+  - Coin
+  - Gift
+  - Health
+  - Animal
+  - Killer
   layers:
   - Default
   - TransparentFX
