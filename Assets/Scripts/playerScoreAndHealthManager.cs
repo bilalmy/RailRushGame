@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerScoreAndHealthManager : MonoBehaviour
 {
@@ -15,10 +16,6 @@ public class playerScoreAndHealthManager : MonoBehaviour
         canva.updateScore(stats.score);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
 
     public void OnTriggerEnter(Collider other)

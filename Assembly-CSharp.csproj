@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\canvaManager.cs" />
     <Compile Include="Assets\Scripts\PathManager.cs" />
     <Compile Include="Assets\player\model\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\UIbuttonController.cs" />
     <Compile Include="Assets\player\model\PlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
