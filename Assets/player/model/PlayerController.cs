@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 2f;
     public float jumpDuration = 0.6f;
 
+    [Header("Ground Fix")]
+    public LayerMask groundLayer;
+    public float groundOffset = 1.2f;
+
     private List<Transform> points;
     private int currentPointIndex = 0;
     private float moveT = 0f;
@@ -98,14 +102,18 @@ public class PlayerController : MonoBehaviour
             endPoint = points[currentPointIndex + 1];
         }
 
+        // Center position on path
         Vector3 centerPos = Vector3.Lerp(startPoint.position, endPoint.position, moveT);
 
+        // Direction
         Vector3 forwardDir = (endPoint.position - startPoint.position).normalized;
         Vector3 rightDir = Vector3.Cross(Vector3.up, forwardDir).normalized;
 
+        // Lane system
         float targetLaneOffset = (currentLane - 1) * laneDistance;
         currentLaneOffset = Mathf.Lerp(currentLaneOffset, targetLaneOffset, laneSmooth * Time.deltaTime);
 
+        // Jump
         float jumpY = 0f;
         if (isJumping)
         {
@@ -113,14 +121,28 @@ public class PlayerController : MonoBehaviour
             jumpY = 4f * jumpHeight * p * (1f - p);
         }
 
+        // Combine XZ
         Vector3 finalPos = centerPos + rightDir * currentLaneOffset;
-        finalPos.y += jumpY;
+
+        // -------- GROUND FIX (MAIN PART) --------
+        RaycastHit hit;
+        if (Physics.Raycast(finalPos + Vector3.up * 5f, Vector3.down, out hit, 20f, groundLayer))
+        {
+            finalPos.y = hit.point.y + groundOffset + jumpY;
+        }
 
         transform.position = finalPos;
 
+        // -------- ROTATION (SLOPE FIX) --------
         if (forwardDir != Vector3.zero)
         {
             Quaternion targetRot = Quaternion.LookRotation(forwardDir);
+
+            if (Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.down, out RaycastHit hit2, 5f, groundLayer))
+            {
+                targetRot = Quaternion.FromToRotation(transform.up, hit2.normal) * targetRot;
+            }
+
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 10f * Time.deltaTime);
         }
     }
