@@ -61,14 +61,15 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.3.8f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\playerScoreAndHealthManager.cs" />
-    <Compile Include="Assets\Scripts\Stats.cs" />
+    <Compile Include="Assets\RailRash_Game\Scripts\PlayersRelated\PlayerController.cs" />
+    <Compile Include="Assets\RailRash_Game\Scripts\CameraRelated\CameraFollow.cs" />
+    <Compile Include="Assets\RailRash_Game\Scripts\UIRelated\UIbuttonController.cs" />
+    <Compile Include="Assets\RailRash_Game\Scripts\Stats.cs" />
+    <Compile Include="Assets\RailRash_Game\Scripts\CoinSpawner.cs" />
+    <Compile Include="Assets\RailRash_Game\Scripts\PathManager.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\Scripts\canvaManager.cs" />
-    <Compile Include="Assets\Scripts\PathManager.cs" />
-    <Compile Include="Assets\player\model\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\UIbuttonController.cs" />
-    <Compile Include="Assets\player\model\PlayerController.cs" />
+    <Compile Include="Assets\RailRash_Game\Scripts\playerScoreAndHealthManager.cs" />
+    <Compile Include="Assets\RailRash_Game\Scripts\UIRelated\canvaManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EasyRoads3D\lib\DelaunayER.dll" />
@@ -1179,6 +1180,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Splines.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Splines.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.2D.Editor.Overrides">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.2D.Editor.Overrides.dll</HintPath>
       <Private>False</Private>
@@ -1235,8 +1240,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Cinemachine.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Cinemachine.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.UnifiedRayTracing.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.UnifiedRayTracing.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Unity.Cinemachine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
@@ -1353,6 +1366,14 @@
     </Reference>
     <Reference Include="Unity.InputSystem">
       <HintPath>Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Settings.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Settings.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Splines">
+      <HintPath>Library\ScriptAssemblies\Unity.Splines.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.UI">
