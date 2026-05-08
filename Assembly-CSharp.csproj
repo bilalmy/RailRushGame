@@ -82,12 +82,10 @@
     <None Include="Assets\EasyRoads3D\Resources\custom prefabs\_custom prefabs.txt" />
     <None Include="Assets\EasyRoads3D\prefab meshes\_custom prefabs.txt" />
     <None Include="Assets\EasyRoads3D\shaders\ER Road Transparency.shader" />
-    <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Tree_Packs\URP_Tree_Pack\Doc\2_Notices.txt" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Demo\Content\Shared\Sketchfab\Credits.txt" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Core\Shaders\Includes\Utilities.hlsl" />
     <None Include="Assets\EasyRoads3D\Quick Start.txt" />
-    <None Include="Assets\Fantasy Skybox FREE\ReleaseNotes.txt" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Core\Shaders\Includes\Debug.hlsl" />
     <None Include="Assets\EasyRoads3D\lib\EasyRoads3Dv3.dll" />
     <None Include="Assets\EasyRoads3D\_readme .txt" />
