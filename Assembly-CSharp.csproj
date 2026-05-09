@@ -68,7 +68,6 @@
     <Compile Include="Assets\RailRash_Game\Scripts\UIRelated\UIbuttonController.cs" />
     <Compile Include="Assets\RailRash_Game\Scripts\Stats.cs" />
     <Compile Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Core\Scripts\LuxInstantWind.cs" />
-    <Compile Include="Assets\RailRash_Game\Scripts\CoinSpawner.cs" />
     <Compile Include="Assets\RailRash_Game\Scripts\PathManager.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\RailRash_Game\Scripts\playerScoreAndHealthManager.cs" />

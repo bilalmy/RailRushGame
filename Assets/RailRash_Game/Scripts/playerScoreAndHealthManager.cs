@@ -49,7 +49,7 @@ public class playerScoreAndHealthManager : MonoBehaviour
             canva.updateScore(stats.score);
             AudioSource coinAudio = other.GetComponent<AudioSource>();
             coinAudio.PlayOneShot(coinAudio.clip, 2f); // 🔊 louder
-            Destroy(other.gameObject, 3f);
+            Destroy(other.gameObject, 1f);
 
         }
 
@@ -58,7 +58,7 @@ public class playerScoreAndHealthManager : MonoBehaviour
             UpdateHealth(+5);
             AudioSource coinAudio = other.GetComponent<AudioSource>();
             coinAudio.PlayOneShot(coinAudio.clip, 2f); // 🔊 louder
-            Destroy(other.gameObject,3f);
+           Destroy(other.gameObject,1f);
         }
 
         if (other.CompareTag("Animal")) //for ice also
@@ -86,12 +86,11 @@ public class playerScoreAndHealthManager : MonoBehaviour
         if (other.CompareTag("finisher"))
         {
             AudioSource coinAudio = other.GetComponent<AudioSource>();
-            coinAudio.PlayOneShot(coinAudio.clip, 2f); // 🔊 louder
+            coinAudio.PlayOneShot(coinAudio.clip, 1f); // 🔊 louder
             Destroy(gameObject, 0.5f); // wait so sound plays
             Level1Complete();
             Debug.Log("Level 1 completed");
            // level 1 complete seen load here ..............................................
-
         }
 
     }

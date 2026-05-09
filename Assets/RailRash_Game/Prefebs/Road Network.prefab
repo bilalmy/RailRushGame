@@ -10496,28 +10496,37 @@ MonoBehaviour:
   osmTerrainLeftLat: 0
   osmTerrainRightLat: 0
   terrainCheckDone: 1
-  terrainMinIndent: 0
-  terrainCellSize: 0
+  terrainMinIndent: 0.7324219
+  terrainCellSize: 0.48828125
   minIndent: 0.7324219
   minSurrounding: 3
   surroundingHeightFactor: 0.5
   terrainCellAngleThreshold: 90
   terrainCellHeightThreshold: 25
   maxIndentSurrounding: 50
-  terrainY: -10000
-  terrainDetailSplatX: 50
-  terrainDetailSplatY: 50
-  detailOffsetVec: {x: 50, y: 0, z: 50}
+  terrainY: -5
+  terrainDetailSplatX: 0.09765625
+  terrainDetailSplatY: 0.09765625
+  detailOffsetVec: {x: 0.09765625, y: 0, z: 0.09765625}
   raise: 0
   baseVector: {x: 0, y: 0, z: 0}
   mirrorCrossings: 1
   terrainNames:
   - All Terrains
+  - Terrain
+  - Right Terrain
+  - Left Terrain
+  - back Terrain
   terrainObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   terrainSplatTextures:
   - Splat 1 - layer_Grass ER
   - Splat 2 - NewLayer
+  - Splat 3 - NewLayer 1
   activeTerrain: {fileID: 0}
   activeTerrainY: -5
   selectedTerrain: 0
@@ -10827,7 +10836,7 @@ MonoBehaviour:
   SoTestObject: {fileID: 0}
   lockRoadNetwork: 0
   showNotifications: 1
-  multipleTerrainsWarning: 0
+  multipleTerrainsWarning: 1
   OODCQQCCCD: []
   OOCQQQCOCC: []
   textureCounter: 0

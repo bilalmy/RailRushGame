@@ -31,9 +31,13 @@ public class UIbuttonController : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("level1Scene"); // CORRECT
     }
-    
-    
 
+
+
+    public void Level2Load()
+    {
+        SceneManager.LoadScene("level2Scene"); // CORRECT
+    }
 
     public void pausegame()
     {
