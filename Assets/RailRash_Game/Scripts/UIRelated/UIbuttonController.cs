@@ -16,6 +16,7 @@ public class UIbuttonController : MonoBehaviour
 
     public void mainMenu()
     {
+        Debug.Log("Main menu Clicked");
         SceneManager.LoadScene("menuScene");
     }
 
@@ -36,6 +37,7 @@ public class UIbuttonController : MonoBehaviour
 
     public void pausegame()
     {
+        Debug.Log("Pause Clicked");
         Time.timeScale = 0f;
         SceneManager.LoadScene("pauseScene",LoadSceneMode.Additive);
     }

@@ -13,6 +13,8 @@ TagManager:
   - finisher
   - Obstcales
   - ice
+  - Wall
+  - roop
   layers:
   - Default
   - TransparentFX
