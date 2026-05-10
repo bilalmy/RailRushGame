@@ -35,7 +35,6 @@ public class canvaManager : MonoBehaviour
     {
         levelCompletePanel.SetActive(true);
         finalScoreTextLevel.text = "Your Score: " + score;
-
         Time.timeScale = 0f;
     }
 
