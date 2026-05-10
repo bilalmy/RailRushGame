@@ -15,6 +15,7 @@ TagManager:
   - ice
   - Wall
   - roop
+  - rope
   layers:
   - Default
   - TransparentFX

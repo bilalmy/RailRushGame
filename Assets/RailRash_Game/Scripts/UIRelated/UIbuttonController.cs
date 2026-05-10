@@ -29,9 +29,9 @@ public class UIbuttonController : MonoBehaviour
     public void RestartLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("level1Scene"); // CORRECT
-    }
 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
 
     public void Level2Load()
