@@ -27,7 +27,6 @@ public class canvaManager : MonoBehaviour
     {
         gameoverPanel.SetActive(true);
         finalScoreTextOver.text = "Your Score: " + score;
-
         Time.timeScale = 0f;
     }
 
