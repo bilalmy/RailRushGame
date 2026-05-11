@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
+﻿using UnityEngine;
+using UnityEngine.Splines;
 
 public class PlayerController : MonoBehaviour
 {
-    public PathManager pathManager;
+    [Header("Spline")]
+    public SplineContainer splineContainer;
 
     [Header("Speed")]
-    public float forwardSpeed = 5f;
+    public float forwardSpeed = 15f;
 
     [Header("Lane")]
     public float laneDistance = 2f;
@@ -17,19 +17,18 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 2f;
     public float jumpDuration = 0.6f;
 
-    [Header("Ground Fix")]
-
-    //groundLayer → which objects count as ground
-    //groundOffset → how high player sits above ground
+    [Header("Ground")]
     public LayerMask groundLayer;
     public float groundOffset = 1.2f;
 
-    // ── Private state ──────────────────────────────────────────────────────────
-    private List<Transform> points;
-    private int segIndex = 0;
-    private float segT = 0f;
+    // ─────────────────────────────────────────────
+    // Private Variables
+    // ─────────────────────────────────────────────
 
-    private int targetLane = 1;            // 0 = left, 1 = centre, 2 = right
+    private float splineProgress = 0f;
+    private float splineLength;
+
+    private int targetLane = 1;
     private float smoothLaneOffset = 0f;
 
     private bool jumping = false;
@@ -37,102 +36,151 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim;
 
-    // ── Helpers ────────────────────────────────────────────────────────────────
-    private bool PathReady => points != null && points.Count >= 2;
-    private bool AtEnd => segIndex >= points.Count - 1;
-    private float LaneTarget => (targetLane - 1) * laneDistance;   // –d, 0, +d
+    // ─────────────────────────────────────────────
+    // Start
+    // ─────────────────────────────────────────────
 
-    // ── Unity lifecycle ────────────────────────────────────────────────────────
     void Start()
     {
         anim = GetComponent<Animator>();
 
-        if (pathManager == null) { Debug.LogError("Assign PathManager"); return; }
+        if (splineContainer == null)
+        {
+            Debug.LogError("Spline Container Missing!");
+            return;
+        }
 
-        points = pathManager.pathPoints;
+        // Calculate spline length
+        splineLength = splineContainer.CalculateLength();
 
-        if (!PathReady) { Debug.LogError("Need at least 2 path points"); return; }
+        // Starting position
+        Vector3 startPos =
+            splineContainer.EvaluatePosition(0f);
 
-        transform.position = points[0].position;
-        transform.rotation = Quaternion.LookRotation((points[1].position - points[0].position).normalized);
+        // Starting forward direction
+        Vector3 startForward =
+            ((Vector3)splineContainer.EvaluateTangent(0f)).normalized;
+
+        transform.position = startPos;
+        transform.rotation = Quaternion.LookRotation(startForward);
     }
+
+    // ─────────────────────────────────────────────
+    // Update
+    // ─────────────────────────────────────────────
 
     void Update()
     {
-        if (!PathReady) return;
+        if (splineContainer == null) return;
 
         HandleInput();
-        MoveOnPath();
+        MoveOnSpline();
         HandleJump();
 
-        anim?.SetBool("IsRunning", true);
+        if (anim != null)
+        {
+            anim.SetBool("IsRunning", true);
+        }
     }
 
-    // ── Movement ───────────────────────────────────────────────────────────────
-    void MoveOnPath()
+    // ─────────────────────────────────────────────
+    // Movement
+    // ─────────────────────────────────────────────
+
+    void MoveOnSpline()
     {
-        if (AtEnd) return;
-        //Move forward along path   ( decide next point avaiable ... ) 
-        AdvanceSegment();
+        // Move forward along spline
+        splineProgress +=
+            (forwardSpeed / splineLength) * Time.deltaTime;
 
-        Vector3 start = points[segIndex].position;
-        Vector3 end = points[segIndex + 1].position;
+        // Clamp progress
+        splineProgress = Mathf.Clamp01(splineProgress);
 
-        //Direction of movement
-        Vector3 forward = (end - start).normalized;
-        Vector3 right = Vector3.Cross(Vector3.up, forward);
+        // Current spline position
+        Vector3 splinePos =
+            splineContainer.EvaluatePosition(splineProgress);
 
-        // Smooth transition between lanes
-        smoothLaneOffset = Mathf.Lerp(smoothLaneOffset, LaneTarget, laneSmooth * Time.deltaTime);
+        // Current forward direction
+        Vector3 tangent =
+            ((Vector3)splineContainer.EvaluateTangent(splineProgress)).normalized;
 
-        // Base position on path + lane
-        Vector3 pos = Vector3.Lerp(start, end, segT) + right * smoothLaneOffset;
+        // Right vector
+        Vector3 right =
+            Vector3.Cross(Vector3.up, tangent).normalized;
 
-        // Snap to ground
+        // Smooth lane switching
+        smoothLaneOffset = Mathf.Lerp(
+            smoothLaneOffset,
+            LaneTarget(),
+            laneSmooth * Time.deltaTime);
+
+        // Apply lane offset
+        Vector3 pos =
+            splinePos + right * smoothLaneOffset;
+
+        // Apply ground snapping + jump
         pos.y = GroundY(pos) + groundOffset + JumpArc();
 
         transform.position = pos;
-        transform.rotation = Quaternion.Slerp(transform.rotation, SlopeRotation(forward), 10f * Time.deltaTime);
-    }
 
-    // Advances segT / segIndex each frame
-    void AdvanceSegment()
-    {
-        float length = Vector3.Distance(points[segIndex].position, points[segIndex + 1].position);
+        // Smooth rotation
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            SlopeRotation(tangent),
+            10f * Time.deltaTime);
 
-        segT += (forwardSpeed / length) * Time.deltaTime;
-
-        if (segT >= 1f)
+        // End of spline
+        if (splineProgress >= 1f)
         {
-            segT = 0f;
-            segIndex++;
-            if (AtEnd) Debug.Log("END OF TRACK!");
+            Debug.Log("END OF TRACK!");
         }
     }
 
-    // ── Input ──────────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────
+    // Input
+    // ─────────────────────────────────────────────
+
     void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        // Move Left
+        if (Input.GetKeyDown(KeyCode.LeftArrow) ||
+            Input.GetKeyDown(KeyCode.A))
+        {
             targetLane = Mathf.Max(0, targetLane - 1);
+        }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        // Move Right
+        if (Input.GetKeyDown(KeyCode.RightArrow) ||
+            Input.GetKeyDown(KeyCode.D))
+        {
             targetLane = Mathf.Min(2, targetLane + 1);
+        }
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && !jumping)
+        // Jump
+        if ((Input.GetKeyDown(KeyCode.UpArrow) ||
+             Input.GetKeyDown(KeyCode.W))
+             && !jumping)
         {
             jumping = true;
             jumpTimer = 0f;
-            anim?.SetTrigger("Jump");
+
+            if (anim != null)
+            {
+                anim.SetTrigger("Jump");
+            }
         }
     }
 
-    // ── Jump ───────────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────
+    // Jump
+    // ─────────────────────────────────────────────
+
     void HandleJump()
     {
         if (!jumping) return;
 
         jumpTimer += Time.deltaTime;
+
         if (jumpTimer >= jumpDuration)
         {
             jumping = false;
@@ -143,23 +191,58 @@ public class PlayerController : MonoBehaviour
     float JumpArc()
     {
         if (!jumping) return 0f;
+
         float p = jumpTimer / jumpDuration;
-        return 4f * jumpHeight * p * (1f - p);   // parabola: 0 → peak → 0
+
+        return 4f * jumpHeight * p * (1f - p);
     }
 
-    // ── Ground & rotation helpers ──────────────────────────────────────────────
+    // ─────────────────────────────────────────────
+    // Helpers
+    // ─────────────────────────────────────────────
+
+    float LaneTarget()
+    {
+        // Left = -distance
+        // Center = 0
+        // Right = +distance
+
+        return (targetLane - 1) * laneDistance;
+    }
+
     float GroundY(Vector3 pos)
     {
-        return Physics.Raycast(pos + Vector3.up * 5f, Vector3.down, out RaycastHit hit, 20f, groundLayer)
-            ? hit.point.y
-            : pos.y;
+        if (Physics.Raycast(
+            pos + Vector3.up * 5f,
+            Vector3.down,
+            out RaycastHit hit,
+            20f,
+            groundLayer))
+        {
+            return hit.point.y;
+        }
+
+        return pos.y;
     }
 
     Quaternion SlopeRotation(Vector3 forward)
     {
-        Quaternion rot = Quaternion.LookRotation(forward);
-        if (Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 5f, groundLayer))
-            rot = Quaternion.FromToRotation(transform.up, hit.normal) * rot;
+        Quaternion rot =
+            Quaternion.LookRotation(forward);
+
+        if (Physics.Raycast(
+            transform.position + Vector3.up * 2f,
+            Vector3.down,
+            out RaycastHit hit,
+            5f,
+            groundLayer))
+        {
+            rot =
+                Quaternion.FromToRotation(
+                    transform.up,
+                    hit.normal) * rot;
+        }
+
         return rot;
     }
 }

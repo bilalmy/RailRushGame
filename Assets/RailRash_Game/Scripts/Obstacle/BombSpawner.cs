@@ -1,73 +1,73 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Splines;
 
 public class BombSpawner : MonoBehaviour
 {
-    [Header("References")]
-    public PathManager pathManager;
+    [Header("Spline")]
+    public SplineContainer splineContainer;
+
+    [Header("Bomb")]
     public GameObject bombPrefab;
 
     [Header("Lane Settings")]
     public float laneDistance = 2f;
 
-    [Header("Height Settings")]
-    public float heightOffset = 2f;
+    [Header("Height")]
+    public float heightOffset = 1f;
 
     [Header("Spawn Settings")]
-    public int startPoint = 15;
-    public int gapBetweenBombs = 25;
+    [Range(0f, 1f)]
+    public float startProgress = 0.1f;
 
-    private List<Transform> points;
+    public float gapBetweenBombs = 0.05f;
 
     void Start()
     {
-        // Get all path points from PathManager
-        points = pathManager.pathPoints;
-
-        // Spawn bombs
         SpawnBombs();
     }
 
     void SpawnBombs()
     {
-        // Spawn bombs after some gap
-        for (int i = startPoint; i < points.Count; i += gapBetweenBombs)
+        if (splineContainer == null || bombPrefab == null)
         {
-            // Current path point
-            Transform point = points[i];
+            Debug.LogError("Missing SplineContainer or BombPrefab!");
+            return;
+        }
 
-            // Random lane:
-            // 0 = Left
-            // 1 = Center
-            // 2 = Right
+        // Move along spline
+        for (float t = startProgress; t < 1f; t += gapBetweenBombs)
+        {
+            // Position on spline
+            Vector3 splinePos =
+                splineContainer.EvaluatePosition(t);
+
+            // Forward direction
+            Vector3 tangent =
+                ((Vector3)splineContainer.EvaluateTangent(t)).normalized;
+
+            // Right direction
+            Vector3 right =
+                Vector3.Cross(Vector3.up, tangent).normalized;
+
+            // Random lane
             int lane = Random.Range(0, 3);
 
-            // Convert lane number into position offset
-            float laneOffset = (lane - 1) * laneDistance;
+            // Convert lane to offset
+            float laneOffset =
+                (lane - 1) * laneDistance;
 
-            // Get road forward direction
-            Vector3 forward;
-
-            if (i < points.Count - 1)
-            {
-                forward = (points[i + 1].position - point.position).normalized;
-            }
-            else
-            {
-                forward = (point.position - points[i - 1].position).normalized;
-            }
-
-            // Get right direction of road
-            Vector3 right = Vector3.Cross(Vector3.up, forward);
-
-            // Final bomb position
+            // Final spawn position
             Vector3 spawnPos =
-                point.position +
+                splinePos +
                 right * laneOffset +
                 Vector3.up * heightOffset;
 
+            // Rotation facing forward
+            Quaternion rot =
+                Quaternion.LookRotation(tangent);
+
             // Spawn bomb
-            Instantiate(bombPrefab, spawnPos, Quaternion.identity);
+            Instantiate(bombPrefab, spawnPos, rot);
         }
     }
 }

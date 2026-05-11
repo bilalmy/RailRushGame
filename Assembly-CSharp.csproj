@@ -55,7 +55,6 @@
     <UnityVersion>6000.3.8f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.3.8f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.3.8f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.3.8f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
@@ -79,10 +78,10 @@
     <None Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Core\Shaders\Includes\URP Lighting.hlsl" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Tree_Packs\URP_Tree_Pack\Doc\1_Readme.txt" />
     <None Include="Assets\EasyRoads3D\SRP Support Packages\_Readme.txt" />
-    <None Include="Assets\EasyRoads3D\shaders\ER Road.shader" />
     <None Include="Assets\EasyRoads3D\Resources\custom prefabs\_custom prefabs.txt" />
     <None Include="Assets\EasyRoads3D\prefab meshes\_custom prefabs.txt" />
-    <None Include="Assets\EasyRoads3D\shaders\ER Road Transparency.shader" />
+    <None Include="Assets\Rowlan\Terrain\Stamps\Examples\MicroVerse\ReadMe.txt" />
+    <None Include="Assets\Rowlan\Terrain\Stamps\Examples\Gaia\Setup.txt" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Tree_Packs\URP_Tree_Pack\Doc\2_Notices.txt" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Demo\Content\Shared\Sketchfab\Credits.txt" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Core\Shaders\Includes\Utilities.hlsl" />
@@ -92,7 +91,9 @@
     <None Include="Assets\EasyRoads3D\_readme .txt" />
     <None Include="Assets\EasyRoads3D\shaders\ER Surface.shader" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Demo\Fonts\ZwriteFont.shader" />
+    <None Include="Assets\EasyRoads3D\shaders\ER Road.shader" />
     <None Include="Assets\EasyRoads3D\SRP Package Notes.txt" />
+    <None Include="Assets\EasyRoads3D\shaders\ER Road Transparency.shader" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\VersionInfo.txt" />
     <None Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Core\Shaders\Includes\InstantWind.hlsl" />
     <None Include="Assets\EasyRoads3D\Resources\dynamic prefabs\dynamic prefabs.txt" />
@@ -667,14 +668,6 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.Types">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.3.8f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.Gradle">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.3.8f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
