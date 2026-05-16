@@ -171,7 +171,7 @@ public class playerScoreAndHealthManager : MonoBehaviour
     }
 
     // ================= UPDATE HEALTH =================
-    void UpdateHealth(int amount)
+    public void UpdateHealth(int amount)
     {
         stats.health += amount;
 
@@ -212,4 +212,6 @@ public class playerScoreAndHealthManager : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+
 }

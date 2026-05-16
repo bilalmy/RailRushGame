@@ -70,6 +70,7 @@
     <Compile Include="Assets\RailRash_Game\Scripts\Spawning\BombSpwanerLevel1.cs" />
     <Compile Include="Assets\RailRash_Game\Environment\Packages\Forst\Lux Instant Vegetation\Core\Scripts\LuxInstantWind.cs" />
     <Compile Include="Assets\SazenGames\Skeleton\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\RailRash_Game\Scripts\Skelton\BanditBehaviour.cs" />
     <Compile Include="Assets\RailRash_Game\Scripts\PathManager.cs" />
     <Compile Include="Assets\RailRash_Game\Scripts\Spawning\CoinSpawner.cs" />
     <Compile Include="Assets\RailRash_Game\Scripts\Spawning\BombSpawner.cs" />
