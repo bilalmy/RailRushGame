@@ -15,6 +15,9 @@ public class ObstacleSpawner : MonoBehaviour
     [Header("Height")]
     public float heightOffset = 0.5f;
 
+    [Header("Bomb Settings")]
+    public float bombExtraHeight = 1f;
+
     [Header("Spawn Settings")]
     [Range(0f, 1f)]
     public float startProgress = 0.1f;
@@ -52,7 +55,6 @@ public class ObstacleSpawner : MonoBehaviour
             // Random chance
             float randomChance = Random.Range(0f, 100f);
 
-            // Skip spawn if chance fails
             if (randomChance > spawnChance)
                 continue;
 
@@ -71,28 +73,37 @@ public class ObstacleSpawner : MonoBehaviour
             // Random lane
             int lane = Random.Range(0, 3);
 
-            // Convert lane to offset
+            // Lane offset
             float laneOffset =
                 (lane - 1) * laneDistance;
 
-            // Final position
-            Vector3 spawnPos =
-                splinePos +
-                right * laneOffset +
-                Vector3.up * heightOffset;
-
-            // Rotation
-            Quaternion rot =
-                Quaternion.LookRotation(tangent);
-
-            // Random obstacle prefab
+            // Random obstacle
             int randomIndex =
                 Random.Range(0, obstaclePrefabs.Length);
 
             GameObject obstacle =
                 obstaclePrefabs[randomIndex];
 
-            // Spawn obstacle
+            // Default height
+            float finalHeight = heightOffset;
+
+            // Bomb gets extra height
+            if (obstacle.name.Contains("Bomb"))
+            {
+                finalHeight += bombExtraHeight;
+            }
+
+            // Final position
+            Vector3 spawnPos =
+                splinePos +
+                right * laneOffset +
+                Vector3.up * finalHeight;
+
+            // Rotation
+            Quaternion rot =
+                Quaternion.LookRotation(tangent);
+
+            // Spawn
             Instantiate(obstacle, spawnPos, rot);
         }
     }
