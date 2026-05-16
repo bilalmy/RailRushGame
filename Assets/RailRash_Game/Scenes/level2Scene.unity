@@ -67639,7 +67639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   splineContainer: {fileID: 1876830820}
-  forwardSpeed: 15
+  forwardSpeed: 18
   laneDistance: 2
   laneSmooth: 5
   jumpHeight: 3

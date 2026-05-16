@@ -95,12 +95,12 @@ public class ObstacleSpawner : MonoBehaviour
 
             if (obstacle.name.Contains("obstacle poisonthrower"))
             {
-                finalHeight += 1;
+                finalHeight += 2;
             }
 
             if (obstacle.name.Contains("obstacle flamethrower 1"))
             {
-                finalHeight += 1;
+                finalHeight += 2;
             }
 
             // Final position
