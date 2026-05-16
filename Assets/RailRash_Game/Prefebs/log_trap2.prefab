@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6683808479563711973}
   m_Layer: 0
   m_Name: log_trap2
-  m_TagString: rope
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

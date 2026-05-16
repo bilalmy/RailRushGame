@@ -68065,11 +68065,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
   splineContainer: {fileID: 1876830820}
   obstaclePrefabs:
-  - {fileID: 5947680761331654914, guid: aa1c65193e329764bb04d148d45f0751, type: 3}
+  - {fileID: 55185113459068846, guid: ffd125b224ba8134cb1b9c31272998c1, type: 3}
   - {fileID: 2369537170563756516, guid: ac957ea73e959634bb7c105455643ed5, type: 3}
   - {fileID: 2412067525508115629, guid: 6cea71d656bd64f4db5684f833a41d3d, type: 3}
-  - {fileID: 680367922988654200, guid: 8831b26675708b840b5e3bc0ea110241, type: 3}
-  - {fileID: 2369537170563756516, guid: ac957ea73e959634bb7c105455643ed5, type: 3}
+  - {fileID: 531832196989594620, guid: cdf68ca7153e0b64eb729b4be1f68833, type: 3}
+  - {fileID: 4950808886085811934, guid: ead8f23812d15ef4ba44ee81f26c5572, type: 3}
   laneDistance: 2
   heightOffset: 0.5
   bombExtraHeight: 1
@@ -68830,7 +68830,7 @@ MonoBehaviour:
   laneDistance: 2
   heightOffset: 1
   startProgress: 0.078
-  gapBetweenCoins: 0.01
+  gapBetweenCoins: 0.002
   gapBetweenCollections: 0.08
   coinsPerCollection: 5
 --- !u!4 &996346379

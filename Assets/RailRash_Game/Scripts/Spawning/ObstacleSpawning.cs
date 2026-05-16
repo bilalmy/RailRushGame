@@ -93,6 +93,16 @@ public class ObstacleSpawner : MonoBehaviour
                 finalHeight += bombExtraHeight;
             }
 
+            if (obstacle.name.Contains("obstacle poisonthrower"))
+            {
+                finalHeight += 1;
+            }
+
+            if (obstacle.name.Contains("obstacle flamethrower 1"))
+            {
+                finalHeight += 1;
+            }
+
             // Final position
             Vector3 spawnPos =
                 splinePos +
